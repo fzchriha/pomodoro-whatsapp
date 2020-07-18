@@ -15,7 +15,7 @@ client = Client(account, token)
 # message = client.messages.create(to=user_number(), from_="whatsapp:+14155238886",
 #                                  body="Hello there!")
 def print_hi():
-    print("Hello")
+    return "Hello Team RC"
 @app.route("/sms", methods=['POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
