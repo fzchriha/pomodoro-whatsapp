@@ -1,14 +1,15 @@
 from flask import Flask, request
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
-import schedule
-import time
-import emoji 
+from apscheduler.schedulers.background import BackgroundScheduler
+import datetime
+import emoji
+import os 
 app = Flask(__name__)
 
 
-account = "AC9eab8284718f0d0e57962dd4ec243fc0"
-token = "86a41ef3e3aad5e3f8d61cf104d40309"
+account = os.environ.get("ACCOUNT_SID")
+token = os.environ.get("TOKEN")
 client = Client(account, token)
 
 # message = client.messages.create(to=user_number(), from_="whatsapp:+14155238886",
@@ -24,17 +25,27 @@ def sms_reply():
     msg = request.form.get('Body')
     phone_number = request.form.get('From')
 
+    #Productivity time
+    msg_received = datetime.datetime.now()
+    prod = msg_received + datetime.timedelta(minutes=25)
+    prod_session = f"{prod.year}-{prod.month:02d}-{prod.day:02d} {prod.hour:02d}:{prod.minute:02d}:{prod.second:02d}"
+    brek = msg_received + datetime.timedelta(minutes=5)
+    brek_session = f"{brek.year}-{brek.month:02d}-{brek.day:02d} {brek.hour:02d}:{brek.minute:02d}:{brek.second:02d}"      
     # Reply after session
-    prod_session = 60 * 25
-    brek_session = 60 * 5
     prod_msg = "You did a great job! Reply *Break* to take a break"
     brek_msg = "Hmm feels good to have a break \N{hot beverage} !Reply *Start* to begin your productivity session"
+    def pomodoro(message):
+    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=message)
     if msg == 'Start':
-        time.sleep(prod_session)
-        client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=prod_msg)
+
+    	sched = BackgroundScheduler(daemon=True)
+    	sched.add_job(pomodoro, 'date', run_date=prod_session, args=[prod_msg])
+    	sched.start()
+    
     elif msg == "Break":
-        time.sleep(brek_session)
-        client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=brek_msg)
+    	sched = BackgroundScheduler(daemon=True)
+    	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
+    	sched.start()
 
     resp = MessagingResponse()
     # Create reply
@@ -42,13 +53,6 @@ def sms_reply():
         resp.message("Hi I am your Pomodoro Bot!\n Reply *Start* to begin your productivity session \N{hourglass}")
         return str(resp)
     
-
-    elif msg == 'Test':
-        resp.message("This is a test")
-        for i in range(10):
-            print(i)
-            time.sleep(6)     
-        return str(resp)
     resp.message("Hello, I am your Pomodoro Bot \N{tomato}")
 
 
@@ -57,10 +61,5 @@ def sms_reply():
 if __name__ == "__main__":
     app.run(debug=True)
     
-# def job_that_executes_once():
-#     # Do some work ...
-#     return schedule.CancelJob
-
-# schedule.every().day.at('22:30').do(job_that_executes_once)
 
 # Threads Flas
