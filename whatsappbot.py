@@ -14,7 +14,7 @@ client = Client(account, token)
 
 # message = client.messages.create(to=user_number(), from_="whatsapp:+14155238886",
 #
-@app.route("/", methods=['GET'])                                  body="Hello there!")
+@app.route("/")
 def Hello():
     return "Hello Team RC"
 @app.route("/sms", methods=['POST'])

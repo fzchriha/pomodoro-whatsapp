@@ -17,7 +17,6 @@ pylint==2.5.3
 pytz==2020.1
 requests==2.24.0
 schedule==0.6.0
-selenium==3.141.0
 six==1.15.0
 toml==0.10.1
 twilio==6.44.0
