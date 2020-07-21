@@ -39,8 +39,8 @@ def sms_reply():
     def pomodoro(message):
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=message)
     if msg == 'Start':
-    	global tmp
-    	tmp = msg_received
+    	global prodse
+    	prodse = msg_received
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=prod_session, args=[prod_msg])
     	sched.start()
@@ -48,19 +48,30 @@ def sms_reply():
     	sched.print_jobs()
     if msg == 'Done':
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
-    if msg == 'Left':
+    if msg == 'Focus Left':
     	try:
-    		time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
+    		time_left = prodse + datetime.timedelta(minutes=25) - datetime.datetime.now()
     		minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
     		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
     	except NameError:
     		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
 
-    elif msg == "Break":
+    if msg == "Break":
+    	global breakse
+    	breakse = msg_received
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
     	sched.start()
     	sched.get_jobs() 
+    if msg == 'Break Left':
+    	try:
+    		time_left = breakse + datetime.timedelta(minutes=25) - datetime.datetime.now()
+    		minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
+    		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
+    	except NameError:
+    		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
+
+
 
     
     # Create reply
