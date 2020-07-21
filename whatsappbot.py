@@ -41,12 +41,16 @@ def sms_reply():
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=prod_session, args=[prod_msg])
     	sched.start()
+    	sched.print_jobs()
     if msg == 'Done':
         client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
+    if msg == 'Debug':
+        sched.print_jobs() 
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
     	sched.start()
+    	sched.get_jobs() 
 
     resp = MessagingResponse()
     # Create reply
@@ -64,3 +68,9 @@ if __name__ == "__main__":
     
 
 # Threads Flas
+
+#How much time left?
+# 3 minutes (example)
+
+
+#Problem:
