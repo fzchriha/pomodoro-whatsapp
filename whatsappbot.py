@@ -52,7 +52,7 @@ def sms_reply():
     	print(tmp)
     	time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
     	minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02f} seconds left"
-    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=time_left)
+    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
