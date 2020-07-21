@@ -31,7 +31,8 @@ def sms_reply():
     prod = msg_received + datetime.timedelta(minutes=25)
     prod_session = f"{prod.year}-{prod.month:02d}-{prod.day:02d} {prod.hour:02d}:{prod.minute:02d}:{prod.second:02d}"
     brek = msg_received + datetime.timedelta(minutes=5)
-    brek_session = f"{brek.year}-{brek.month:02d}-{brek.day:02d} {brek.hour:02d}:{brek.minute:02d}:{brek.second:02d}"      
+    brek_session = f"{brek.year}-{brek.month:02d}-{brek.day:02d} {brek.hour:02d}:{brek.minute:02d}:{brek.second:02d}"
+    resp = MessagingResponse()      
     # Reply after session
     prod_msg = "You did a great job! Reply *Break* to take a break"
     brek_msg = "Hmm feels good to have a break \N{hot beverage} !Reply *Start* to begin your productivity session"
@@ -48,20 +49,20 @@ def sms_reply():
     if msg == 'Done':
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Debug':
-    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=tmp)
+    	resp.message(tmp)
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
     	sched.start()
     	sched.get_jobs() 
 
-    resp = MessagingResponse()
+    
     # Create reply
     if msg == 'Hello':
         resp.message("Hi I am your Pomodoro Bot!\n Reply *Start* to begin your productivity session \N{hourglass}")
         return str(resp)
     
-    resp.message("Hello, I am your Pomodoro Bot \N{tomato}")
+    
 
 
 
