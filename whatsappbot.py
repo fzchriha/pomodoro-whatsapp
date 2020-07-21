@@ -38,6 +38,8 @@ def sms_reply():
     def pomodoro(message):
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=message)
     if msg == 'Start':
+    	global tmp
+    	tmp = msg_received
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=prod_session, args=[prod_msg])
     	sched.start()
@@ -46,7 +48,7 @@ def sms_reply():
     if msg == 'Done':
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Debug':
-    	sched.print_jobs() 
+    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=tmp)
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
