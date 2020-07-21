@@ -50,11 +50,11 @@ def sms_reply():
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Left':
     	try:
-	    	time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
-	    	minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
-	    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
-	    except NameError:
-	    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
+    		time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
+    		minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
+    		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
+    	except NameError:
+    		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
 
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
