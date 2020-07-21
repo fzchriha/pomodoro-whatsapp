@@ -39,8 +39,8 @@ def sms_reply():
     def pomodoro(message):
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=message)
     if msg == 'Start':
-    	global prodse
-    	prodse = msg_received
+    	global tmp
+    	tmp = msg_received
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=prod_session, args=[prod_msg])
     	sched.start()
@@ -50,7 +50,7 @@ def sms_reply():
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Focus Left':
     	try:
-    		time_left = prodse + datetime.timedelta(minutes=25) - datetime.datetime.now()
+    		time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
     		minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
     		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
     	except NameError:
