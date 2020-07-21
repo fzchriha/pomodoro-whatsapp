@@ -73,7 +73,7 @@ def sms_reply():
     			minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
     			client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
     		else:
-    			client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Please begin a Productivity session by replying *Start*")
+    			client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Please begin a Break session by replying *Break*")
     	except NameError:
     		client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
 
