@@ -49,10 +49,13 @@ def sms_reply():
     if msg == 'Done':
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Left':
-    	print(tmp)
-    	time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
-    	minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02f} seconds left"
-    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
+    	try:
+	    	time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
+	    	minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02d} seconds left"
+	    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=minutes_left)
+	    except NameError:
+	    	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body="Hey wait a minute please while we are processing your request...")
+
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
