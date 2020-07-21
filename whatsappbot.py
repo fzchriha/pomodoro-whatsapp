@@ -45,6 +45,7 @@ def sms_reply():
     if msg == 'Done':
         client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Debug':
+    	sched = BackgroundScheduler(daemon=True)
         sched.print_jobs() 
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
