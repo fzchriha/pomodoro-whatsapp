@@ -51,8 +51,7 @@ def sms_reply():
     if msg == 'Left':
     	print(tmp)
     	time_left = tmp + datetime.timedelta(minutes=25) - datetime.datetime.now()
-    	print(time_left.minute)
-    	# minutes_left = f"You have {time_left.minute:02d} minutes and {time_left.second:02d} seconds left"
+    	minutes_left = f"You have {time_left.seconds // 60} minutes and {time_left.seconds % 60: 02f} seconds left"
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body=time_left)
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
