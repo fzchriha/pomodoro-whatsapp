@@ -50,6 +50,7 @@ def sms_reply():
     	client.messages.create(to=phone_number, from_="whatsapp:+14155238886", body='Not yet!')
     if msg == 'Debug':
     	resp.message(tmp)
+    	return str(resp)
     elif msg == "Break":
     	sched = BackgroundScheduler(daemon=True)
     	sched.add_job(pomodoro, 'date', run_date=brek_session, args=[brek_msg])
