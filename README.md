@@ -1,4 +1,4 @@
-# pomodoro-whatsapp
+# Pomodoro in WhatsApp
 
 A pomodoro bot for whatsappp
 
@@ -7,7 +7,7 @@ A pomodoro bot for whatsappp
 *Twilio API (Beta)
 *Flask
 
-#Usage:
+# Usage:
 
 On WhatsApp text **join should-smooth** to **+1 (415) 523-8886**
 
@@ -20,7 +20,7 @@ On WhatsApp text **join should-smooth** to **+1 (415) 523-8886**
 
 ```python whatsappbot.py```
 
-#Problems faced while building this project:
+# Problems faced while building this project:
 
 * Problem: Scheduling the bot reply after 25min or 5min
 
