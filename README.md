@@ -11,10 +11,10 @@ A pomodoro bot for whatsappp
 
 On WhatsApp text **join should-smooth** to **+1 (415) 523-8886**
 
-#Contribute to this project:
+# Contribute to this project:
 
-*Fork this github repository
-*Clone this github repository
+* Fork this github repository
+* Clone this github repository
 
 ```pip install -r requirements.txt```
 
