@@ -85,6 +85,10 @@ def sms_reply():
         resp.message("Hi I am your Pomodoro Bot!\n Reply *Start* to begin your productivity session \N{hourglass}")
         return str(resp)
     
+    if msg == 'Menu':
+        resp.message("Hi I am your Pomodoro Bot!\n Reply *Start* to begin your productivity session \N{hourglass}\n Reply *Focus Left* to check how many time is left\n Reply *Break* to take a break \N{hot beverage} Reply *Break Left* to check how many time is left")
+        return str(resp)
+    
     
 
 
@@ -92,12 +96,4 @@ def sms_reply():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-
-# Threads Flas
-
-#How much time left?
-# 3 minutes (example)
-
-
-#Problem:
+   
