@@ -86,7 +86,7 @@ def sms_reply():
         return str(resp)
     
     if msg == 'Menu':
-        resp.message("Hi I am your Pomodoro Bot!\n Reply *Start* to begin your productivity session \N{hourglass}\n Reply *Focus Left* to check how many time is left\n Reply *Break* to take a break \N{hot beverage} Reply *Break Left* to check how many time is left")
+        resp.message("Hi I am your Pomodoro Bot!\nReply *Start* to begin your productivity session \N{hourglass}\nReply *Focus Left* to check how many time is left\nReply *Break* to take a break \N{hot beverage}\nReply *Break Left* to check how many time is left")
         return str(resp)
     
     
