@@ -23,7 +23,7 @@ twilio==6.44.0
 typed-ast==1.4.1
 tzlocal==2.1
 urllib3==1.26.5
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 wrapt==1.12.1
 gunicorn==20.0.4
 
